@@ -203,8 +203,6 @@ default_floating_border none
 # focus urgent workspace
 focus_on_window_activation focus
 
-for_window [class="awakened-poe-trade"] floating enable
-
 # bar & border status bar
 bar {
   swaybar_command waybar
