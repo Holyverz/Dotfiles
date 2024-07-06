@@ -15,7 +15,8 @@ set $right l
 set $term foot
 
 # Browsers
-set $browser microsoft-edge-stable --disable-features=msEdgeSidebarV2 -enable-features=UseOzonePlatform -ozone-platform=wayland
+#set $browser microsoft-edge-stable --enable-features=UseOzonePlatform --ozone-platform=wayland --use-cmd-decoder=validating --use-gl=desktop
+set $browser microsoft-edge-stable --use-gl=angle --use-angle=vulkan --enable-accelerated-video-decode --enable-features=Vulkan,VulkanFromANGLE,DefaultANGLEVulkan,VaapiIgnoreDriverChecks,VaapiVideoDecoder,PlatformHEVCDecoderSupport,UseMultiPlaneFormatForHardwareVideo,UseOzonePlatform --disable-features=msEdgeSidebarV2 -ozone-platform=wayland
 #  App Launcher
 set $applauncher wofi --show drun -I
 
@@ -26,7 +27,14 @@ set $screenshot grimshot --notify copy area
 #
 
 # Set monitor
-output DP-3 mode 3440x1440@120Hz
+output DP-3 mode 3440x1440@120Hz pos 0 0
+output HDMI-A-1 mode 1920x1080@60Hz pos 3440 0
+workspace 9 output HDMI-A-1
+workspace 1 output DP-3
+workspace 2 output DP-3
+workspace 3 output DP-3
+workspace 4 output DP-3
+workspace 5 output DP-3
 output * adaptive_sync on
 
 # Wallpaper
@@ -96,17 +104,13 @@ output * bg $HOLYVERZOS_ASSETS_PATH/walpap.png fill
     bindsym $mod+6 workspace number 6
     bindsym $mod+7 workspace number 7
     bindsym $mod+8 workspace number 8
-    bindsym $mod+9 workspace number 9
+    bindsym $mod+Tab workspace number 9
     bindsym $mod+0 workspace number 10
     # Move focused container to workspace
     bindsym $mod+Shift+1 move container to workspace number 1
     bindsym $mod+Shift+2 move container to workspace number 2
     bindsym $mod+Shift+3 move container to workspace number 3
-    bindsym $mod+Shift+4 move container to workspace number 4
-    bindsym $mod+Shift+5 move container to workspace number 5
-    bindsym $mod+Shift+6 move container to workspace number 6
-    bindsym $mod+Shift+7 move container to workspace number 7
-    bindsym $mod+Shift+8 move container to workspace number 8
+    bindsym $mod+Shift+4 move container to bindsym --release Button1 workspace number 8
     bindsym $mod+Shift+9 move container to workspace number 9
     bindsym $mod+Shift+0 move container to workspace number 10
     # Note: workspaces can have any name you want, not just numbers.
@@ -131,7 +135,7 @@ output * bg $HOLYVERZOS_ASSETS_PATH/walpap.png fill
     # Toggle the current focus between tiling and floating mode
     bindsym $mod+Shift+space floating toggle
 
-    # Swap focus between the tiling area and the floating area
+    # Swap focus betVV ween the tiling area and the floating area
     # bindsym $mod+space focus mode_toggle
 
     # Move focus to the parent container
@@ -158,6 +162,11 @@ output * bg $HOLYVERZOS_ASSETS_PATH/walpap.png fill
 #
 # Resizing containers:
 #
+
+bindsym --whole-window $mod+button4 exec xdotool keydown ctrl click 1 keyup ctrl
+bindsym --whole-window $mod+button5 exec xdotool keydown ctrl click 1 keyup ctrl 
+bindsym --whole-window Shift+button4 exec xdotool click 1
+bindsym --whole-window Shift+button5 exec xdotool click 1
 mode "resize" {
     # left will shrink the containers width
     # right will grow the containers width
@@ -187,9 +196,10 @@ bindsym XF86AudioLowerVolume exec test $(pactl get-sink-volume @DEFAULT_SINK@ | 
 # UI
 
 # Set global opacity over windows
-set $opacity 0.98
+set $opacity 0.99
 for_window [class=".*"] opacity $opacity
 for_window [app_id=".*"] opacity $opacity
+#for_window [class="awakened-poe-trade"] border none, floating enable
 exec sleep 3s && wal -f .cache/wal/colors.json
 # Windows gap
 gaps inner 2
@@ -208,7 +218,7 @@ bar {
   swaybar_command waybar
 }
 
-font CascadiaCode Bold 15
+font CascadiaCode Bold 10
 smart_borders on
 client.focused #100f1a #100f1a #52A8D7 #000000 #000000
 client.unfocused #000000 #000000 #52A8D7 #000000 #000000
@@ -217,7 +227,7 @@ client.focused_inactive #000000 #000000 #52A8D7 #000000 #000000
 # Startup
 exec swaymsg 'workspace 1; exec $term'
 exec swaymsg 'workspace 2; exec $browser'
-exec swaymsg 'workspace 3; exec sleep 1s && discord'
+exec swaymsg 'workspace 3; exec sleep 1s && discord-canary'
 
 # Allow screensharing
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
@@ -229,6 +239,4 @@ input type:keyboard {
   xkb_layout us
   xkb_options caps:none
 }
-
 include @sysconfdir@/sway/config.d/*
-

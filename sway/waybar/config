@@ -1,0 +1,30 @@
+{
+  "layer": "top",
+    "position": "left",
+    "modules-center": ["wlr/workspaces", "sway/workspaces"],
+    "modules-right": ["custom/gpu", "memory", "clock"],
+    "sway/workspaces": {
+    	"all-outputs": true,
+      "on-click": "activate",
+	"format": "{value}",
+	"persistent_workspaces": {
+	   "1": [],
+	   "2": [],
+	   "3": []
+	}
+    },
+    "clock": {
+        "format": "{:%H:%M}",
+	"interval": 1,
+        "tooltip-format": "<big>{:%T %n%A %b %d %Y}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+    "memory": {
+	"format": "{}%"
+    },
+    "custom/gpu": {
+    "format": "{}%",
+     "exec": "cat /sys/class/drm/card0/device/gpu_busy_percent && sh ~/.config/waybar/scripts/gputemp.sh",
+     "interval": 30,
+     "tooltip-format": "{$1}"
+     }
+}

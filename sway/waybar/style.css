@@ -1,0 +1,54 @@
+
+* {
+  font-weight: bold;
+  font-size: 17px;
+  min-width: 0;
+}
+
+window#waybar {
+    background-color: rgba(0, 0, 0, .6);
+
+    font-family: Cascadia Code;
+}
+
+#workspaces {
+  font-size: 17px;    
+}
+
+#workspaces button {
+  color: #52A8D7;
+   box-shadow: none;
+   border-style: none;
+   margin-left: 5px;
+   margin-right: 5px;
+}
+
+#workspaces button:hover {
+  background: #a2d0e3;
+  color: #09080f;
+}
+
+#workspaces button.focused {
+  color: #a2d0e3;
+  background: rgba(45, 72, 111, 0.2);
+}
+
+#clock {
+    color: #52A8D7;
+    font-size: 15px;
+    padding-right: 5px;
+    padding-left: 5px;
+    margin-bottom: 8px;
+}
+
+#custom-gpu {
+  color: #52A8D7;
+  margin-bottom: 8px;
+}
+
+#memory {
+    color: #52A8D7;
+    font-size: 17px;
+    margin-bottom: 8px;
+}
+
